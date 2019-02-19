@@ -47,8 +47,16 @@ func initDB() {
 	}
 }
 
+func GetEnv(key string, def string) string {
+	val, ok := os.LookupEnv(key)
+	if !ok {
+		return def
+	}
+	return val
+}
+
 func createDefaultUsers() {
-	hash, err := passlib.Hash("b3secure")
+	hash, err := passlib.Hash(GetEnv("ADMIN_PASS", "b3secure"))
 	if err != nil {
 		beego.Error("Unable to hash password", err)
 	}
