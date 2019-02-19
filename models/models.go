@@ -83,7 +83,7 @@ func createDefaultSettings() {
 		Profile:       "default",
 		MIAddress:     "openvpn:2080",
 		MINetwork:     "tcp",
-		ServerAddress: "127.0.0.1",
+		ServerAddress: GetEnv("OPENVPN_ADDRESS", "127.0.0.1"),
 		OVConfigPath:  "/etc/openvpn/",
 	}
 	o := orm.NewOrm()
