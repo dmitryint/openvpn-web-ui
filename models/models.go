@@ -115,6 +115,7 @@ func createDefaultOVConfig() {
 			Management:          "0.0.0.0 2080",
 			MaxClients:          100,
 			Server:              "10.8.0.0 255.255.255.0",
+			Route:				 GetEnv("OPENVPN_ROUTE", "0.0.0.0 0.0.0.0"),
 			Ca:                  "keys/ca.crt",
 			Cert:                "keys/server.crt",
 			Key:                 "keys/server.key",

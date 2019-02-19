@@ -17,6 +17,7 @@ dh {{ .Dh }}
 server {{ .Server }}
 ifconfig-pool-persist {{ .IfconfigPoolPersist }}
 push "route {{ .Server }}"
+push "route {{ .Route }}"
 push "dhcp-option DNS 8.8.8.8"
 push "dhcp-option DNS 8.8.4.4"
 
