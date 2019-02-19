@@ -45,9 +45,17 @@ func New() Config {
 	return defaultConfig
 }
 
+func Split(s string, d string) []string {
+    arr := strings.Split(s, d)
+    return arr
+}
+
 //GetText injects config values into template
 func GetText(tpl string, c Config) (string, error) {
+	tplFuncMap := make(template.FuncMap)
+	tplFuncMap["Split"] := Split
 	t := template.New("config")
+	t.Funcs(tplFuncMap)
 	t, err := t.Parse(tpl)
 	if err != nil {
 		return "", err

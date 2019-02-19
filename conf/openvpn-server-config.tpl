@@ -17,7 +17,12 @@ dh {{ .Dh }}
 server {{ .Server }}
 ifconfig-pool-persist {{ .IfconfigPoolPersist }}
 push "route {{ .Server }}"
-push "route {{ .Route }}"
+
+{{$route_arr := Split .Route ","}}
+{{range $k, $v := $route_arr}}
+    push "route {{ $v }}"
+{{end}}
+
 push "dhcp-option DNS 8.8.8.8"
 push "dhcp-option DNS 8.8.4.4"
 
