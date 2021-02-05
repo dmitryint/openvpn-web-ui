@@ -1,4 +1,4 @@
-FROM golang:1.13 as beego_build
+FROM golang:1.13-stretch as beego_build
 
 RUN go get github.com/beego/bee && \
     go get github.com/astaxie/beego
