@@ -2,7 +2,6 @@ package models
 
 import (
 	"os"
-	"strconv"
 
 	"github.com/adamwalach/go-openvpn/server/config"
 	"github.com/astaxie/beego"
@@ -102,11 +101,10 @@ func createDefaultSettings() {
 }
 
 func createDefaultOVConfig() {
-	port, _ := strconv.Atoi(GetEnv("OPENVPN_PORT", "1194"))
 	c := OVConfig{
 		Profile: "default",
 		Config: config.Config{
-			Port:                port,
+			Port:                1194,
 			Proto:               "udp",
 			Cipher:              "AES-256-CBC",
 			Keysize:             256,
