@@ -25,6 +25,14 @@ type CertificatesController struct {
 	BaseController
 }
 
+func GetEnv(key string, def string) string {
+	val, ok := os.LookupEnv(key)
+	if !ok {
+		return def
+	}
+	return val
+}
+
 func (c *CertificatesController) NestPrepare() {
 	if !c.IsLogin {
 		c.Ctx.Redirect(302, c.LoginPath())
@@ -154,7 +162,7 @@ func validateCertParams(cert NewCertParams) map[string]map[string]string {
 }
 
 func saveClientConfig(name string) (string, error) {
-	port, _ := strconv.Atoi(GetEnv("OPENVPN_PORT", "1194"))
+	port, _ := strconv.Atoi(Getenv("OPENVPN_PORT", "1194"))
 
 	cfg := config.New()
 	cfg.ServerAddress = models.GlobalCfg.ServerAddress
@@ -179,6 +187,8 @@ func saveClientConfig(name string) (string, error) {
 }
 
 func saveClientSingleConfig(name string, pathString string) (string, error) {
+	port, _ := strconv.Atoi(Getenv("OPENVPN_PORT", "1194"))
+
 	cfg := config.New()
 	cfg.ServerAddress = models.GlobalCfg.ServerAddress
 	cfg.Cert = readCert(pathString + name + ".crt")
@@ -186,7 +196,7 @@ func saveClientSingleConfig(name string, pathString string) (string, error) {
 	cfg.Ca = readCert(pathString + "ca.crt")
 	serverConfig := models.OVConfig{Profile: "default"}
 	serverConfig.Read("Profile")
-	cfg.Port = serverConfig.Port
+	cfg.Port = port
 	cfg.Proto = serverConfig.Proto
 	cfg.Auth = serverConfig.Auth
 	cfg.Cipher = serverConfig.Cipher
