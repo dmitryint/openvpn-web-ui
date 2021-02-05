@@ -162,7 +162,7 @@ func validateCertParams(cert NewCertParams) map[string]map[string]string {
 }
 
 func saveClientConfig(name string) (string, error) {
-	port, _ := strconv.Atoi(Getenv("OPENVPN_PORT", "1194"))
+	port, _ := strconv.Atoi(GetEnv("OPENVPN_PORT", "1194"))
 
 	cfg := config.New()
 	cfg.ServerAddress = models.GlobalCfg.ServerAddress
@@ -187,7 +187,7 @@ func saveClientConfig(name string) (string, error) {
 }
 
 func saveClientSingleConfig(name string, pathString string) (string, error) {
-	port, _ := strconv.Atoi(Getenv("OPENVPN_PORT", "1194"))
+	port, _ := strconv.Atoi(GetEnv("OPENVPN_PORT", "1194"))
 
 	cfg := config.New()
 	cfg.ServerAddress = models.GlobalCfg.ServerAddress
